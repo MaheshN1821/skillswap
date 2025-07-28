@@ -70,7 +70,7 @@ const UserProfile = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-zinc-900"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-purple-600"></div>
       </div>
     )
   }
@@ -84,13 +84,13 @@ const UserProfile = () => {
   }
 
   return (
-    <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 to-indigo-100">
       <div className="max-w-4xl mx-auto">
         {/* Profile Header */}
-        <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-zinc-200/50 p-8 mb-8">
+        <div className="bg-white rounded-2xl border border-zinc-200 p-8 mb-8 shadow-xl">
           <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
-            <div className="w-32 h-32 bg-gradient-to-br from-zinc-200 to-zinc-300 rounded-full flex items-center justify-center">
-              <span className="text-4xl font-bold text-zinc-700">{user.name[0]}</span>
+            <div className="w-32 h-32 bg-gradient-to-br from-purple-400 to-indigo-500 rounded-full flex items-center justify-center text-white">
+              <span className="text-4xl font-bold">{user.name[0]}</span>
             </div>
 
             <div className="flex-1 text-center md:text-left">
@@ -113,24 +113,24 @@ const UserProfile = () => {
         </div>
 
         {/* Skills Offered */}
-        <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-zinc-200/50 p-8 mb-8">
-          <h2 className="text-2xl font-bold text-zinc-900 mb-6">Skills Offered</h2>
+        <div className="bg-white rounded-2xl border border-zinc-200 p-8 mb-8 shadow-xl">
+          <h2 className="text-2xl font-bold text-indigo-700 mb-6">Skills Offered</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {user.skillsOffered.map((skill, index) => (
-              <div key={index} className="bg-zinc-50 rounded-xl p-6 hover:bg-zinc-100 transition-colors">
+              <div key={index} className="bg-indigo-50 rounded-xl p-6 hover:bg-indigo-100 transition-colors">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <h3 className="text-lg font-semibold text-zinc-900">{skill.skill}</h3>
-                    <p className="text-sm text-zinc-600">{skill.category}</p>
+                    <h3 className="text-lg font-semibold text-indigo-900">{skill.skill}</h3>
+                    <p className="text-sm text-indigo-600">{skill.category}</p>
                   </div>
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-medium ${
                       skill.level === "expert"
-                        ? "bg-green-100 text-green-800"
+                        ? "bg-green-200 text-green-800"
                         : skill.level === "intermediate"
-                          ? "bg-yellow-100 text-yellow-800"
-                          : "bg-blue-100 text-blue-800"
+                          ? "bg-yellow-200 text-yellow-800"
+                          : "bg-blue-200 text-blue-800"
                     }`}
                   >
                     {skill.level}
@@ -138,10 +138,10 @@ const UserProfile = () => {
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-zinc-600">{skill.experience} years experience</span>
+                  <span className="text-sm text-indigo-600">{skill.experience} years experience</span>
                   <button
                     onClick={() => handleBookSession(skill)}
-                    className="px-4 py-2 bg-gradient-to-r from-zinc-900 to-zinc-700 text-white rounded-lg hover:from-zinc-800 hover:to-zinc-600 transition-all duration-200 text-sm font-medium"
+                    className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:from-indigo-500 hover:to-purple-500 transition-all duration-200 text-sm font-medium"
                   >
                     Book Session
                   </button>
@@ -153,14 +153,14 @@ const UserProfile = () => {
 
         {/* Skills Wanted */}
         {user.skillsWanted.length > 0 && (
-          <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-zinc-200/50 p-8">
-            <h2 className="text-2xl font-bold text-zinc-900 mb-6">Skills They Want to Learn</h2>
+          <div className="bg-white rounded-2xl border border-zinc-200 p-8 shadow-xl">
+            <h2 className="text-2xl font-bold text-indigo-700 mb-6">Skills They Want to Learn</h2>
 
             <div className="flex flex-wrap gap-3">
               {user.skillsWanted.map((skill, index) => (
-                <div key={index} className="px-4 py-2 bg-zinc-100 rounded-full">
-                  <span className="text-zinc-700 font-medium">{skill.skill}</span>
-                  <span className="text-zinc-500 text-sm ml-2">({skill.category})</span>
+                <div key={index} className="px-4 py-2 bg-indigo-100 text-indigo-800 rounded-full">
+                  <span className="font-medium">{skill.skill}</span>
+                  <span className="text-sm ml-2">({skill.category})</span>
                 </div>
               ))}
             </div>
@@ -171,7 +171,7 @@ const UserProfile = () => {
       {/* Booking Modal */}
       {showBookingModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl p-8 max-w-md w-full">
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl">
             <h3 className="text-2xl font-bold text-zinc-900 mb-6">Book Session: {selectedSkill?.skill}</h3>
 
             <form onSubmit={submitBooking} className="space-y-6">
@@ -182,7 +182,7 @@ const UserProfile = () => {
                   required
                   value={bookingData.scheduledDate}
                   onChange={(e) => setBookingData({ ...bookingData, scheduledDate: e.target.value })}
-                  className="w-full px-4 py-3 border border-zinc-300 rounded-xl focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-zinc-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                 />
               </div>
 
@@ -192,13 +192,13 @@ const UserProfile = () => {
                   rows="4"
                   value={bookingData.message}
                   onChange={(e) => setBookingData({ ...bookingData, message: e.target.value })}
-                  className="w-full px-4 py-3 border border-zinc-300 rounded-xl focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-zinc-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                   placeholder="Tell them what you'd like to learn..."
                 />
               </div>
 
-              <div className="bg-zinc-50 rounded-xl p-4">
-                <p className="text-sm text-zinc-600">
+              <div className="bg-indigo-50 rounded-xl p-4">
+                <p className="text-sm text-indigo-700">
                   <strong>Cost:</strong> 1 point (You have {currentUser.points} points)
                 </p>
               </div>
@@ -213,7 +213,7 @@ const UserProfile = () => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-3 px-4 bg-gradient-to-r from-zinc-900 to-zinc-700 text-white rounded-xl hover:from-zinc-800 hover:to-zinc-600 transition-all duration-200"
+                  className="flex-1 py-3 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-500 hover:to-purple-500 transition-all duration-200"
                 >
                   Send Request
                 </button>

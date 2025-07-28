@@ -73,7 +73,7 @@ const Bookings = () => {
   })
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-rose-50 to-yellow-100 py-10 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <div className="mb-8 text-center">
           <h1 className="text-4xl font-extrabold bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-500 bg-clip-text text-transparent mb-2">My Bookings</h1>

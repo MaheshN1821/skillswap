@@ -21,7 +21,7 @@ const Landing = () => {
   const rightColumnCategories = skillCategories.slice(4, 8)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 text-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 text-slate-900">
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900">
         <div className="absolute inset-0 bg-black/20"></div>

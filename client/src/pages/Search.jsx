@@ -46,7 +46,7 @@ const Search = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-rose-50 to-yellow-100 py-10 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-fuchsia-600 via-red-500 to-yellow-500 bg-clip-text text-transparent">Find Skills to Learn</h1>

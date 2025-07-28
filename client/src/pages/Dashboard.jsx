@@ -42,7 +42,7 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-pink-50 to-rose-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 flex items-center justify-center">
         <div className="flex flex-col items-center space-y-4">
           <div className="relative">
             <div className="w-16 h-16 border-4 border-pink-200 rounded-full animate-spin"></div>
@@ -55,7 +55,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-pink-50 to-rose-100 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
