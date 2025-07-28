@@ -52,22 +52,20 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-rose-50 to-yellow-100 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-zinc-900 mb-4">My Profile</h1>
-          <p className="text-zinc-600">Manage your account and skills</p>
+          <h1 className="text-3xl font-bold text-rose-900 mb-4">My Profile</h1>
+          <p className="text-rose-600">Manage your account and skills</p>
         </div>
 
-        {/* Profile Card */}
-        <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-zinc-200/50 p-8 mb-8">
+        <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-rose-200/50 p-8 mb-8">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold text-zinc-900">Personal Information</h2>
+            <h2 className="text-2xl font-bold text-rose-900">Personal Information</h2>
             {!editing && (
               <button
                 onClick={() => setEditing(true)}
-                className="px-4 py-2 bg-gradient-to-r from-zinc-900 to-zinc-700 text-white rounded-lg hover:from-zinc-800 hover:to-zinc-600 transition-all duration-200"
+                className="px-4 py-2 bg-gradient-to-r from-rose-500 to-pink-400 text-white rounded-lg hover:from-rose-400 hover:to-pink-300 transition-all duration-200"
               >
                 Edit Profile
               </button>
@@ -78,37 +76,37 @@ const Profile = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-zinc-700 mb-2">Full Name</label>
+                  <label className="block text-sm font-medium text-rose-700 mb-2">Full Name</label>
                   <input
                     type="text"
                     name="name"
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/50 border border-zinc-300 rounded-xl focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-white/70 border border-rose-300 rounded-xl focus:ring-2 focus:ring-rose-400 focus:border-transparent"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-zinc-700 mb-2">Age</label>
+                  <label className="block text-sm font-medium text-rose-700 mb-2">Age</label>
                   <input
                     type="number"
                     name="age"
                     required
                     value={formData.age}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/50 border border-zinc-300 rounded-xl focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-white/70 border border-rose-300 rounded-xl focus:ring-2 focus:ring-rose-400 focus:border-transparent"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-zinc-700 mb-2">Gender</label>
+                  <label className="block text-sm font-medium text-rose-700 mb-2">Gender</label>
                   <select
                     name="gender"
                     required
                     value={formData.gender}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/50 border border-zinc-300 rounded-xl focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-white/70 border border-rose-300 rounded-xl focus:ring-2 focus:ring-rose-400 focus:border-transparent"
                   >
                     <option value="">Select gender</option>
                     <option value="male">Male</option>
@@ -118,26 +116,26 @@ const Profile = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-zinc-700 mb-2">Location</label>
+                  <label className="block text-sm font-medium text-rose-700 mb-2">Location</label>
                   <input
                     type="text"
                     name="location"
                     required
                     value={formData.location}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/50 border border-zinc-300 rounded-xl focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-white/70 border border-rose-300 rounded-xl focus:ring-2 focus:ring-rose-400 focus:border-transparent"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-zinc-700 mb-2">Bio</label>
+                <label className="block text-sm font-medium text-rose-700 mb-2">Bio</label>
                 <textarea
                   name="bio"
                   rows="4"
                   value={formData.bio}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/50 border border-zinc-300 rounded-xl focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
+                  className="w-full px-4 py-3 bg-white/70 border border-rose-300 rounded-xl focus:ring-2 focus:ring-rose-400 focus:border-transparent"
                   placeholder="Tell us about yourself..."
                 />
               </div>
@@ -146,14 +144,14 @@ const Profile = () => {
                 <button
                   type="button"
                   onClick={cancelEdit}
-                  className="flex-1 py-3 px-4 bg-zinc-200 text-zinc-700 rounded-xl hover:bg-zinc-300 transition-colors"
+                  className="flex-1 py-3 px-4 bg-rose-200 text-rose-700 rounded-xl hover:bg-rose-300 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 py-3 px-4 bg-gradient-to-r from-zinc-900 to-zinc-700 text-white rounded-xl hover:from-zinc-800 hover:to-zinc-600 transition-all duration-200 disabled:opacity-50"
+                  className="flex-1 py-3 px-4 bg-gradient-to-r from-rose-600 to-pink-500 text-white rounded-xl hover:from-rose-500 hover:to-pink-400 transition-all duration-200 disabled:opacity-50"
                 >
                   {loading ? "Saving..." : "Save Changes"}
                 </button>
@@ -163,31 +161,31 @@ const Profile = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-4">
                 <div>
-                  <label className="text-sm font-medium text-zinc-500">Name</label>
-                  <p className="text-lg text-zinc-900">{user?.name}</p>
+                  <label className="text-sm font-medium text-rose-600">Name</label>
+                  <p className="text-lg text-rose-900">{user?.name}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-zinc-500">Age</label>
-                  <p className="text-lg text-zinc-900">{user?.age}</p>
+                  <label className="text-sm font-medium text-rose-600">Age</label>
+                  <p className="text-lg text-rose-900">{user?.age}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-zinc-500">Gender</label>
-                  <p className="text-lg text-zinc-900 capitalize">{user?.gender}</p>
+                  <label className="text-sm font-medium text-rose-600">Gender</label>
+                  <p className="text-lg text-rose-900 capitalize">{user?.gender}</p>
                 </div>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <label className="text-sm font-medium text-zinc-500">Location</label>
-                  <p className="text-lg text-zinc-900">{user?.location}</p>
+                  <label className="text-sm font-medium text-rose-600">Location</label>
+                  <p className="text-lg text-rose-900">{user?.location}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-zinc-500">Points Balance</label>
-                  <p className="text-lg text-zinc-900">{user?.points || 0} points</p>
+                  <label className="text-sm font-medium text-rose-600">Points Balance</label>
+                  <p className="text-lg text-rose-900">{user?.points || 0} points</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-zinc-500">Rating</label>
-                  <p className="text-lg text-zinc-900">
+                  <label className="text-sm font-medium text-rose-600">Rating</label>
+                  <p className="text-lg text-rose-900">
                     ★ {user?.rating?.average?.toFixed(1) || "0.0"} ({user?.rating?.count || 0} reviews)
                   </p>
                 </div>
@@ -195,8 +193,8 @@ const Profile = () => {
 
               {user?.bio && (
                 <div className="md:col-span-2">
-                  <label className="text-sm font-medium text-zinc-500">Bio</label>
-                  <p className="text-lg text-zinc-900 mt-1">{user.bio}</p>
+                  <label className="text-sm font-medium text-rose-600">Bio</label>
+                  <p className="text-lg text-rose-900 mt-1">{user.bio}</p>
                 </div>
               )}
             </div>
@@ -205,53 +203,47 @@ const Profile = () => {
 
         {/* Skills Sections */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Skills Offered */}
-          <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-zinc-200/50 p-6">
-            <h3 className="text-xl font-bold text-zinc-900 mb-4">Skills I Teach</h3>
-
+          <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-rose-200/50 p-6">
+            <h3 className="text-xl font-bold text-rose-900 mb-4">Skills I Teach</h3>
             {user?.skillsOffered?.length > 0 ? (
               <div className="space-y-3">
                 {user.skillsOffered.map((skill, index) => (
-                  <div key={index} className="bg-zinc-50 rounded-lg p-4">
+                  <div key={index} className="bg-rose-50 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-semibold text-zinc-900">{skill.skill}</h4>
-                      <span
-                        className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          skill.level === "expert"
-                            ? "bg-green-100 text-green-800"
-                            : skill.level === "intermediate"
-                              ? "bg-yellow-100 text-yellow-800"
-                              : "bg-blue-100 text-blue-800"
-                        }`}
-                      >
+                      <h4 className="font-semibold text-rose-900">{skill.skill}</h4>
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        skill.level === "expert"
+                          ? "bg-green-100 text-green-800"
+                          : skill.level === "intermediate"
+                          ? "bg-yellow-100 text-yellow-800"
+                          : "bg-blue-100 text-blue-800"
+                      }`}>
                         {skill.level}
                       </span>
                     </div>
-                    <p className="text-sm text-zinc-600">{skill.category}</p>
-                    <p className="text-sm text-zinc-500">{skill.experience} years experience</p>
+                    <p className="text-sm text-rose-700">{skill.category}</p>
+                    <p className="text-sm text-rose-500">{skill.experience} years experience</p>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-zinc-500">No skills added yet</p>
+              <p className="text-rose-500">No skills added yet</p>
             )}
           </div>
 
-          {/* Skills Wanted */}
-          <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-zinc-200/50 p-6">
-            <h3 className="text-xl font-bold text-zinc-900 mb-4">Skills I Want to Learn</h3>
-
+          <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-rose-200/50 p-6">
+            <h3 className="text-xl font-bold text-rose-900 mb-4">Skills I Want to Learn</h3>
             {user?.skillsWanted?.length > 0 ? (
               <div className="space-y-3">
                 {user.skillsWanted.map((skill, index) => (
-                  <div key={index} className="bg-zinc-50 rounded-lg p-4">
-                    <h4 className="font-semibold text-zinc-900">{skill.skill}</h4>
-                    <p className="text-sm text-zinc-600">{skill.category}</p>
+                  <div key={index} className="bg-rose-50 rounded-lg p-4">
+                    <h4 className="font-semibold text-rose-900">{skill.skill}</h4>
+                    <p className="text-sm text-rose-700">{skill.category}</p>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-zinc-500">No learning goals added yet</p>
+              <p className="text-rose-500">No learning goals added yet</p>
             )}
           </div>
         </div>
