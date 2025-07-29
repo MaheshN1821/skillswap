@@ -1,14 +1,14 @@
-const express = require("express")
-const Booking = require("../models/Booking")
-const User = require("../models/User")
-const auth = require("../middleware/auth")
+const express = require("express");
+const Booking = require("../models/Booking");
+const User = require("../models/User");
+const auth = require("../middleware/auth");
 
-const router = express.Router()
+const router = express.Router();
 
 // Create booking
 router.post("/", auth, async (req, res) => {
   try {
-    const { teacherId, skill, category, scheduledDate, message } = req.body
+    const { teacherId, skill, category, scheduledDate, message } = req.body;
 
     const booking = new Booking({
       learner: req.userId,
@@ -17,101 +17,131 @@ router.post("/", auth, async (req, res) => {
       category,
       scheduledDate: new Date(scheduledDate),
       message,
-    })
+    });
 
-    await booking.save()
-    await booking.populate(["learner", "teacher"])
+    await booking.save();
+    await booking.populate(["learner", "teacher"]);
 
-    res.status(201).json(booking)
+    res.status(201).json(booking);
   } catch (error) {
-    res.status(500).json({ message: "Server error" })
+    res.status(500).json({ message: "Server error" });
   }
-})
+});
 
 // Get user bookings
 router.get("/my-bookings", auth, async (req, res) => {
   try {
-    const { type } = req.query // 'teaching' or 'learning'
+    const { type } = req.query; // 'teaching' or 'learning'
 
-    let query = {}
+    let query = {};
     if (type === "teaching") {
-      query.teacher = req.userId
+      query.teacher = req.userId;
     } else if (type === "learning") {
-      query.learner = req.userId
+      query.learner = req.userId;
     } else {
       query = {
         $or: [{ teacher: req.userId }, { learner: req.userId }],
-      }
+      };
     }
 
     const bookings = await Booking.find(query)
       .populate("learner", "name email avatar")
       .populate("teacher", "name email avatar")
-      .sort({ createdAt: -1 })
+      .sort({ createdAt: -1 });
 
-    res.json(bookings)
+    res.json(bookings);
   } catch (error) {
-    res.status(500).json({ message: "Server error" })
+    res.status(500).json({ message: "Server error" });
   }
-})
+});
 
 // Update booking status
 router.put("/:id/status", auth, async (req, res) => {
   try {
-    const { status, meetingLink } = req.body
+    const { status, meetingLink } = req.body;
 
-    const booking = await Booking.findById(req.params.id)
+    const booking = await Booking.findById(req.params.id);
     if (!booking) {
-      return res.status(404).json({ message: "Booking not found" })
+      return res.status(404).json({ message: "Booking not found" });
     }
 
     // Only teacher can accept/reject
     if (booking.teacher.toString() !== req.userId) {
-      return res.status(403).json({ message: "Not authorized" })
+      return res.status(403).json({ message: "Not authorized" });
     }
 
-    booking.status = status
+    booking.status = status;
     if (meetingLink) {
-      booking.meetingLink = meetingLink
+      booking.meetingLink = meetingLink;
     }
 
-    await booking.save()
-    await booking.populate(["learner", "teacher"])
+    await booking.save();
+    await booking.populate(["learner", "teacher"]);
 
-    res.json(booking)
+    res.json(booking);
   } catch (error) {
-    res.status(500).json({ message: "Server error" })
+    res.status(500).json({ message: "Server error" });
   }
-})
+});
+
+//update link
+router.put("/:id/link", auth, async (req, res) => {
+  try {
+    const { link } = req.body;
+
+    const booking = await Booking.findById(req.params.id);
+    if (!booking) {
+      return res.status(404).json({ message: "Booking not found" });
+    }
+
+    // Only teacher can accept/reject
+    if (booking.teacher.toString() !== req.userId) {
+      return res.status(403).json({ message: "Not authorized" });
+    }
+
+    booking.meetingLink = link;
+
+    await booking.save();
+    await booking.populate(["learner", "teacher"]);
+
+    res.json(booking);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 // Complete session
 router.put("/:id/complete", auth, async (req, res) => {
   try {
-    const booking = await Booking.findById(req.params.id)
+    const booking = await Booking.findById(req.params.id);
     if (!booking) {
-      return res.status(404).json({ message: "Booking not found" })
+      return res.status(404).json({ message: "Booking not found" });
     }
 
     // Only teacher can mark as complete
     if (booking.teacher.toString() !== req.userId) {
-      return res.status(403).json({ message: "Not authorized" })
+      return res.status(403).json({ message: "Not authorized" });
     }
 
-    booking.status = "completed"
-    booking.pointsEarned = Math.ceil(booking.duration / 60) // 1 point per hour
+    booking.status = "completed";
+    booking.pointsEarned = Math.ceil(booking.duration / 60); // 1 point per hour
 
-    await booking.save()
+    await booking.save();
 
     // Update teacher points
-    await User.findByIdAndUpdate(booking.teacher, { $inc: { points: booking.pointsEarned } })
+    await User.findByIdAndUpdate(booking.teacher, {
+      $inc: { points: booking.pointsEarned },
+    });
 
     // Deduct learner points
-    await User.findByIdAndUpdate(booking.learner, { $inc: { points: -booking.pointsEarned } })
+    await User.findByIdAndUpdate(booking.learner, {
+      $inc: { points: -booking.pointsEarned },
+    });
 
-    res.json(booking)
+    res.json(booking);
   } catch (error) {
-    res.status(500).json({ message: "Server error" })
+    res.status(500).json({ message: "Server error" });
   }
-})
+});
 
-module.exports = router
+module.exports = router;
