@@ -7,7 +7,6 @@ import api from "../utils/api";
 
 const Bookings = () => {
   const { user } = useAuth();
-  console.log(user);
 
   const { addToast } = useToast();
   const [activeTab, setActiveTab] = useState("all");
@@ -56,7 +55,7 @@ const Bookings = () => {
       const response = await api.get(`/bookings/my-bookings${params}`);
       setBookings(response.data);
 
-      console.log(response.data);
+      //console.log(response.data);
     } catch (error) {
       console.error("Error fetching bookings:", error);
     } finally {
