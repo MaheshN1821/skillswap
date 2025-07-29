@@ -1,19 +1,20 @@
 "use client"
 import { Link } from "react-router-dom"
 import { useAuth } from "../contexts/AuthContext"
+import { Code, Brush, Music, Languages, ChefHat, Mic, Camera, Dumbbell, GraduationCap, RefreshCcw, Star, BarChart3, Wallet, Calendar, Target } from "lucide-react"
 
 const Landing = () => {
   const { user } = useAuth()
 
   const skillCategories = [
-    { name: "Programming", icon: "💻", color: "from-blue-500 to-purple-600" },
-    { name: "Design", icon: "🎨", color: "from-pink-500 to-rose-600" },
-    { name: "Art & Music", icon: "🎵", color: "from-green-500 to-teal-600" },
-    { name: "Language Learning", icon: "🗣️", color: "from-yellow-500 to-orange-600" },
-    { name: "Cooking & Baking", icon: "👨‍🍳", color: "from-red-500 to-pink-600" },
-    { name: "Public Speaking", icon: "🎤", color: "from-indigo-500 to-blue-600" },
-    { name: "Photography", icon: "📸", color: "from-purple-500 to-indigo-600" },
-    { name: "Health & Fitness", icon: "💪", color: "from-green-500 to-emerald-600" },
+     { name: "Programming", icon: <Code size={28} />, color: "from-blue-500 to-purple-600" },
+    { name: "Design", icon: <Brush size={28} />, color: "from-pink-500 to-rose-600" },
+    { name: "Art & Music", icon: <Music size={28} />, color: "from-green-500 to-teal-600" },
+    { name: "Language Learning", icon: <Languages size={28} />, color: "from-yellow-500 to-orange-600" },
+    { name: "Cooking & Baking", icon: <ChefHat size={28} />, color: "from-red-500 to-pink-600" },
+    { name: "Public Speaking", icon: <Mic size={28} />, color: "from-indigo-500 to-blue-600" },
+    { name: "Photography", icon: <Camera size={28} />, color: "from-purple-500 to-indigo-600" },
+    { name: "Health & Fitness", icon: <Dumbbell size={28} />, color: "from-green-500 to-emerald-600" },
   ]
 
   // Split categories into 2 columns of 4 each
@@ -21,9 +22,9 @@ const Landing = () => {
   const rightColumnCategories = skillCategories.slice(4, 8)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 text-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-purpal-100 text-slate-900">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900">
+      <section className="relative overflow-hidden bg-gradient-to-br from-purpal-900 via-indigo-900 to-blue-900">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10"></div>
         
@@ -36,7 +37,7 @@ const Landing = () => {
             <div className="absolute top-8 right-8">
               {user ? (
                 <span className="px-4 py-2 bg-white/10 backdrop-blur-sm text-white/90 rounded-full text-sm font-medium border border-white/20">
-                  Welcome back! 👋
+                  Welcome!👋
                 </span>
               ) : (
                 <span className="px-4 py-2 bg-white/10 backdrop-blur-sm text-white/90 rounded-full text-sm font-medium border border-white/20">
@@ -70,7 +71,7 @@ const Landing = () => {
               <div className="mb-8">
                 <Link
                   to="/dashboard"
-                  className="inline-block px-8 py-4 bg-gradient-to-r from-emerald-400 to-teal-500 text-white rounded-2xl font-bold text-lg hover:from-emerald-500 hover:to-teal-600 transition-all duration-300 shadow-2xl hover:shadow-emerald-500/25 hover:scale-105"
+                  className="inline-block px-8 py-4 bg-gradient-to-r from-indigo-300 to-purple-500 text-white rounded-2xl font-bold text-lg hover:from-purple-500 hover:to-indigo-600 transition-all duration-300 shadow-2xl hover:shadow-emerald-500/25 hover:scale-105"
                 >
                   Go to Dashboard
                 </Link>
@@ -119,11 +120,9 @@ const Landing = () => {
             <div className="text-center group">
               <div className="relative mb-8">
                 <div className="w-24 h-24 bg-gradient-to-br from-emerald-400 to-teal-600 rounded-3xl flex items-center justify-center mx-auto group-hover:scale-110 transition-all duration-300 shadow-2xl shadow-emerald-500/25">
-                  <span className="text-4xl">🎓</span>
+                  <GraduationCap size={40} className="text-white" />
                 </div>
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
-                  <span className="text-sm font-bold text-yellow-900">1</span>
-                </div>
+ 
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-6">Teach & Earn Points</h3>
               <p className="text-slate-600 leading-relaxed">
@@ -134,11 +133,9 @@ const Landing = () => {
             <div className="text-center group">
               <div className="relative mb-8">
                 <div className="w-24 h-24 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-3xl flex items-center justify-center mx-auto group-hover:scale-110 transition-all duration-300 shadow-2xl shadow-blue-500/25">
-                  <span className="text-4xl">🔄</span>
+                  <RefreshCcw size={40} className="text-white" />
                 </div>
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
-                  <span className="text-sm font-bold text-yellow-900">2</span>
-                </div>
+
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-6">Spend Points Wisely</h3>
               <p className="text-slate-600 leading-relaxed">
@@ -149,11 +146,9 @@ const Landing = () => {
             <div className="text-center group">
               <div className="relative mb-8">
                 <div className="w-24 h-24 bg-gradient-to-br from-purple-400 to-pink-600 rounded-3xl flex items-center justify-center mx-auto group-hover:scale-110 transition-all duration-300 shadow-2xl shadow-purple-500/25">
-                  <span className="text-4xl">🌟</span>
+                   <Star size={40} className="text-white" />
                 </div>
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
-                  <span className="text-sm font-bold text-yellow-900">3</span>
-                </div>
+
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-6">Build Community</h3>
               <p className="text-slate-600 leading-relaxed">
@@ -182,7 +177,7 @@ const Landing = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="bg-white rounded-2xl p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300 border border-slate-100">
               <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-600 rounded-2xl flex items-center justify-center mb-6">
-                <span className="text-2xl">📊</span>
+                <BarChart3 size={32} className="mb-4 text-black-600" />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-3">Progress Analytics</h3>
               <p className="text-slate-600">Track your learning milestones and teaching impact with detailed insights.</p>
@@ -190,7 +185,7 @@ const Landing = () => {
 
             <div className="bg-white rounded-2xl p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300 border border-slate-100">
               <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-cyan-600 rounded-2xl flex items-center justify-center mb-6">
-                <span className="text-2xl">💰</span>
+                <Wallet size={32} className="mb-4 text-black-600" />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-3">Points Management</h3>
               <p className="text-slate-600">Monitor your earned points and plan your next skill acquisition strategy.</p>
@@ -198,7 +193,7 @@ const Landing = () => {
 
             <div className="bg-white rounded-2xl p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300 border border-slate-100">
               <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-600 rounded-2xl flex items-center justify-center mb-6">
-                <span className="text-2xl">📅</span>
+               <Calendar size={32} className="mb-4 text-black-600" />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-3">Session Scheduler</h3>
               <p className="text-slate-600">Easily book and manage your teaching and learning sessions.</p>
@@ -206,7 +201,7 @@ const Landing = () => {
 
             <div className="bg-white rounded-2xl p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300 border border-slate-100">
               <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-red-600 rounded-2xl flex items-center justify-center mb-6">
-                <span className="text-2xl">🎯</span>
+                <Target size={32} className="mb-4 text-black-600" />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-3">Skill Matching</h3>
               <p className="text-slate-600">Get personalized recommendations for skills to learn and teach.</p>
@@ -279,7 +274,7 @@ const Landing = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 relative overflow-hidden">
+      <section className="py-32 bg-gradient-to-br from-purpal-900 via-indigo-900 to-blue-900 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="absolute top-20 left-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 right-20 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
@@ -287,7 +282,7 @@ const Landing = () => {
         <div className="relative max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
             <span className="inline-block px-4 py-2 bg-white/10 backdrop-blur-sm text-white/90 rounded-full text-sm font-medium border border-white/20">
-              🎉 Join 10,000+ Active Learners
+              🎉 Join Active Learners
             </span>
           </div>
           
