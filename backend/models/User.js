@@ -60,16 +60,16 @@ const userSchema = new mongoose.Schema(
     ],
     points: {
       type: Number,
-      default: 0,
+      default: 1,
     },
     rating: {
       average: {
         type: Number,
-        default: 0,
+        default: 4.2,
       },
       count: {
         type: Number,
-        default: 0,
+        default: 2,
       },
     },
     availability: [
