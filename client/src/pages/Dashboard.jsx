@@ -4,10 +4,16 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import api from "../utils/api";
-import {  FaUserCircle ,FaCoins, FaHourglassHalf, FaCheckCircle, FaCalendarAlt, FaSearch, FaBookOpen, FaUser } from "react-icons/fa";
-
-
-
+import {
+  FaUserCircle,
+  FaCoins,
+  FaHourglassHalf,
+  FaCheckCircle,
+  FaCalendarAlt,
+  FaSearch,
+  FaBookOpen,
+  FaUser,
+} from "react-icons/fa";
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -58,9 +64,7 @@ const Dashboard = () => {
             <div className="w-16 h-16 border-4 border-pink-200 rounded-full animate-spin"></div>
             <div className="absolute top-0 left-0 w-16 h-16 border-4 border-pink-500 rounded-full animate-spin border-t-transparent"></div>
           </div>
-          <p className="text-pink-700 font-medium">
-            Loading your dashboard...
-          </p>
+          <p className="text-pink-700 font-medium">Loading your dashboard...</p>
         </div>
       </div>
     );
@@ -82,7 +86,7 @@ const Dashboard = () => {
         {/* Header */}
         <div className="mb-12">
           <div className="flex items-center space-x-4 mb-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-rose-600 rounded-2xl flex items-center justify-center shadow-lg">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-rose-600 rounded-2xl flex items-center justify-center shadow-lg">
               <span className="text-2xl font-bold text-white">
                 {user?.name?.charAt(0)}
               </span>
@@ -177,65 +181,66 @@ const Dashboard = () => {
         </div>
 
         {/* Quick Actions Section */}
-<div className="mb-12">
-  <div className="mb-8">
-    <h2 className="text-3xl font-bold text-slate-900 mb-2">Quick Actions</h2>
-    <p className="text-slate-600 text-lg">
-      Navigate to key areas of your account
-    </p>
-  </div>
+        <div className="mb-12">
+          <div className="mb-8">
+            <h2 className="text-3xl font-bold text-slate-900 mb-2">
+              Quick Actions
+            </h2>
+            <p className="text-slate-600 text-lg">
+              Navigate to key areas of your account
+            </p>
+          </div>
 
-  <div className="flex flex-wrap gap-6 justify-between">
-    {/* Find Skills */}
-    <Link
-      to="/search"
-      className="flex-1 min-w-[250px] bg-gradient-to-br from-slate-800 to-slate-900 text-white rounded-3xl p-8 hover:from-slate-700 hover:to-slate-800 transition-all duration-300 group shadow-xl hover:shadow-2xl hover:scale-105"
-    >
-      <div className="text-center">
-        <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-          <FaSearch className="text-3xl text-white" />
+          <div className="flex flex-wrap gap-6 justify-between">
+            {/* Find Skills */}
+            <Link
+              to="/search"
+              className="flex-1 min-w-[250px] bg-gradient-to-br from-slate-800 to-slate-900 text-white rounded-3xl p-8 hover:from-slate-700 hover:to-slate-800 transition-all duration-300 group shadow-xl hover:shadow-2xl hover:scale-105"
+            >
+              <div className="text-center">
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <FaSearch className="text-3xl text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-3">Find Skills</h3>
+                <p className="text-slate-300">
+                  Discover new skills to learn from our community
+                </p>
+              </div>
+            </Link>
+
+            {/* My Bookings */}
+            <Link
+              to="/bookings"
+              className="flex-1 min-w-[250px] bg-gradient-to-br from-slate-800 to-slate-900 text-white rounded-3xl p-8 hover:from-slate-700 hover:to-slate-800 transition-all duration-300 group shadow-xl hover:shadow-2xl hover:scale-105"
+            >
+              <div className="text-center">
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <FaBookOpen className="text-3xl text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-3">My Bookings</h3>
+                <p className="text-slate-300">
+                  Manage your learning and teaching sessions
+                </p>
+              </div>
+            </Link>
+
+            {/* My Profile */}
+            <Link
+              to="/profile"
+              className="flex-1 min-w-[250px] bg-gradient-to-br from-slate-800 to-slate-900 text-white rounded-3xl p-8 hover:from-slate-700 hover:to-slate-800 transition-all duration-300 group shadow-xl hover:shadow-2xl hover:scale-105"
+            >
+              <div className="text-center">
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <FaUserCircle className="text-3xl text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-3">My Profile</h3>
+                <p className="text-slate-300">
+                  Update your skills and personal information
+                </p>
+              </div>
+            </Link>
+          </div>
         </div>
-        <h3 className="text-2xl font-bold mb-3">Find Skills</h3>
-        <p className="text-slate-300">
-          Discover new skills to learn from our community
-        </p>
-      </div>
-    </Link>
-
-    {/* My Bookings */}
-    <Link
-      to="/bookings"
-      className="flex-1 min-w-[250px] bg-gradient-to-br from-slate-800 to-slate-900 text-white rounded-3xl p-8 hover:from-slate-700 hover:to-slate-800 transition-all duration-300 group shadow-xl hover:shadow-2xl hover:scale-105"
-    >
-      <div className="text-center">
-        <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-          <FaBookOpen className="text-3xl text-white" />
-        </div>
-        <h3 className="text-2xl font-bold mb-3">My Bookings</h3>
-        <p className="text-slate-300">
-          Manage your learning and teaching sessions
-        </p>
-      </div>
-    </Link>
-
-    {/* My Profile */}
-    <Link
-      to="/profile"
-      className="flex-1 min-w-[250px] bg-gradient-to-br from-slate-800 to-slate-900 text-white rounded-3xl p-8 hover:from-slate-700 hover:to-slate-800 transition-all duration-300 group shadow-xl hover:shadow-2xl hover:scale-105"
-    >
-      <div className="text-center">
-        <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-          <FaUserCircle className="text-3xl text-white" />
-        </div>
-        <h3 className="text-2xl font-bold mb-3">My Profile</h3>
-        <p className="text-slate-300">
-          Update your skills and personal information
-        </p>
-      </div>
-    </Link>
-  </div>
-</div>
-
 
         {/* Recent Activity - Full Width */}
         <div className="bg-white/70 backdrop-blur-xl rounded-3xl border border-white/50 p-8 shadow-xl">

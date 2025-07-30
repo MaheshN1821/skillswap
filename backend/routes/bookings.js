@@ -2,6 +2,7 @@ const express = require("express");
 const Booking = require("../models/Booking");
 const User = require("../models/User");
 const auth = require("../middleware/auth");
+const Review = require("../models/Review");
 
 const router = express.Router();
 
@@ -139,6 +140,27 @@ router.put("/:id/complete", auth, async (req, res) => {
     });
 
     res.json(booking);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+router.post("/reviews", auth, async (req, res) => {
+  try {
+    const { booking, reviewer, reviewee, rating, comment, type } = req.body;
+
+    const review = new Review({
+      booking: booking,
+      reviewer: reviewer,
+      reviewee: reviewee,
+      rating,
+      comment: comment,
+      type: type,
+    });
+
+    await review.save();
+
+    res.status(201).json(booking);
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
