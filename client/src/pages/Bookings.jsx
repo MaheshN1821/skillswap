@@ -1,3 +1,5 @@
+// ✅ UPDATED booking.jsx (frontend) with proper review submission to match backend API
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -7,7 +9,6 @@ import api from "../utils/api";
 
 const Bookings = () => {
   const { user } = useAuth();
-
   const { addToast } = useToast();
   const [activeTab, setActiveTab] = useState("all");
   const [bookings, setBookings] = useState([]);
@@ -17,15 +18,15 @@ const Bookings = () => {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [durationComplete, setDurationComplete] = useState(false);
   const [isMeetingStarted, setIsMeetingStarted] = useState(false);
+  const [reviewData, setReviewData] = useState({});
+  const [submittedReviews, setSubmittedReviews] = useState({});
 
   useEffect(() => {
     let interval;
-
     if (isMeetingStarted) {
       interval = setInterval(() => {
         setElapsedTime((prev) => {
           if (prev >= 1800) {
-            // 30 minutes
             clearInterval(interval);
             setDurationComplete(true);
             return prev;
@@ -34,14 +35,13 @@ const Bookings = () => {
         });
       }, 1000);
     }
-
     return () => clearInterval(interval);
   }, [isMeetingStarted]);
 
   const handleJoin = () => {
     setIsMeetingStarted(true);
     setElapsedTime(0);
-    setDurationComplete(false); // reset if rejoining
+    setDurationComplete(false);
   };
 
   useEffect(() => {
@@ -54,8 +54,6 @@ const Bookings = () => {
       const params = activeTab === "all" ? "" : `?type=${activeTab}`;
       const response = await api.get(`/bookings/my-bookings${params}`);
       setBookings(response.data);
-
-      //console.log(response.data);
     } catch (error) {
       console.error("Error fetching bookings:", error);
     } finally {
@@ -93,20 +91,39 @@ const Bookings = () => {
     }
   };
 
+  const submitReview = async (bookingId) => {
+    const { rating, feedback } = reviewData[bookingId] || {};
+    if (!rating || !feedback) {
+      addToast("Please provide both rating and feedback", "warning");
+      return;
+    }
+
+    const booking = bookings.find((b) => b._id === bookingId);
+    try {
+      await api.post("/reviews", {
+        booking: bookingId,
+        reviewer: user._id,
+        reviewee: booking.teacher._id,
+        rating,
+        comment: feedback,
+        type: "learner"
+      });
+      setSubmittedReviews((prev) => ({ ...prev, [bookingId]: true }));
+      addToast("Review submitted successfully!", "success");
+    } catch (error) {
+      console.error(error);
+      addToast("Failed to submit review", "error");
+    }
+  };
+
   const getStatusColor = (status) => {
     switch (status) {
-      case "pending":
-        return "bg-yellow-100 text-yellow-800";
-      case "accepted":
-        return "bg-green-100 text-green-800";
-      case "completed":
-        return "bg-blue-100 text-blue-800";
-      case "rejected":
-        return "bg-red-100 text-red-800";
-      case "cancelled":
-        return "bg-gray-100 text-gray-800";
-      default:
-        return "bg-gray-100 text-gray-800";
+      case "pending": return "bg-yellow-100 text-yellow-800";
+      case "accepted": return "bg-green-100 text-green-800";
+      case "completed": return "bg-blue-100 text-blue-800";
+      case "rejected": return "bg-red-100 text-red-800";
+      case "cancelled": return "bg-gray-100 text-gray-800";
+      default: return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -123,9 +140,7 @@ const Bookings = () => {
           <h1 className="text-4xl font-extrabold bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-500 bg-clip-text text-transparent mb-2">
             My Bookings
           </h1>
-          <p className="text-zinc-700">
-            Manage your teaching and learning sessions
-          </p>
+          <p className="text-zinc-700">Manage your teaching and learning sessions</p>
         </div>
 
         <div className="bg-white/90 backdrop-blur-md rounded-2xl border border-zinc-200 p-2 mb-8 shadow-xl">
@@ -136,7 +151,7 @@ const Bookings = () => {
                 onClick={() => setActiveTab(tab)}
                 className={`flex-1 py-3 px-4 rounded-xl font-semibold transition-all duration-200 text-sm md:text-base shadow-sm ${
                   activeTab === tab
-                    ? "bg-gradient-to-r from-fuchsia-500 to-pink-500 text-white"
+                    ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white"
                     : "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
                 }`}
               >
@@ -195,9 +210,7 @@ const Bookings = () => {
                       </div>
                       <div>
                         <span className="text-zinc-500">Duration:</span>
-                        <p className="font-medium">
-                          {booking.duration} minutes
-                        </p>
+                        <p className="font-medium">{booking.duration} minutes</p>
                       </div>
                       <div>
                         <span className="text-zinc-500">Status:</span>
@@ -213,9 +226,7 @@ const Bookings = () => {
 
                     {booking.message && (
                       <div className="mt-4 p-3 bg-pink-50 rounded-lg">
-                        <p className="text-sm text-zinc-700">
-                          {booking.message}
-                        </p>
+                        <p className="text-sm text-zinc-700">{booking.message}</p>
                       </div>
                     )}
                   </div>
@@ -246,23 +257,20 @@ const Bookings = () => {
                           </button>
                         </>
                       )}
-                    {/* <div>Hello!</div> */}
+
                     {booking.status === "accepted" && (
                       <>
-                        {booking.meetingLink &&
-                          (linkUpdated ? (
-                            <></>
-                          ) : (
-                            <a
-                              onClick={() => handleJoin()}
-                              href={booking.meetingLink}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm text-center"
-                            >
-                              Join Meeting
-                            </a>
-                          ))}
+                        {booking.meetingLink && !linkUpdated && (
+                          <a
+                            onClick={() => handleJoin()}
+                            href={booking.meetingLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm text-center"
+                          >
+                            Join Meeting
+                          </a>
+                        )}
                         {booking.teacher._id === user._id &&
                           (durationComplete ? (
                             <button
@@ -272,39 +280,27 @@ const Bookings = () => {
                               Mark Complete
                             </button>
                           ) : (
-                            <div className="px-4 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 text-center transition-colors text-sm">
-                              Wait for atleast 30 mins to mark complete
+                            <div className="px-4 py-2 bg-violet-600 text-white rounded-lg text-center text-sm">
+                              Wait 30 mins to mark complete
                             </div>
                           ))}
                         {booking.teacher._id === user._id &&
                           (linkUpdated ? (
-                            <div>
-                              Link Updated! Go to Google Meet and Admit the
-                              learner
-                            </div>
+                            <div>Link Updated! Admit learner via Meet</div>
                           ) : (
                             <>
-                              <div>
-                                <label
-                                  htmlFor="name"
-                                  className="block text-sm font-medium text-zinc-700 mb-2"
-                                >
-                                  Enter Updated Link
-                                </label>
-                                <input
-                                  id="link"
-                                  name="link"
-                                  type="text"
-                                  required
-                                  value={link}
-                                  onChange={(e) => setLink(e.target.value)}
-                                  className="w-full px-4 py-3 bg-white/50 border border-zinc-300 rounded-xl focus:ring-2 focus:ring-zinc-500 focus:border-transparent transition-all duration-200"
-                                  placeholder="Enter your full name"
-                                />
-                              </div>
+                              <label className="text-sm font-medium mb-1">
+                                Enter Updated Link
+                              </label>
+                              <input
+                                type="text"
+                                value={link}
+                                onChange={(e) => setLink(e.target.value)}
+                                className="w-full px-4 py-2 rounded-lg border border-zinc-300 mb-2"
+                              />
                               <button
                                 onClick={() => updateLink(booking._id, link)}
-                                className="px-4 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-colors text-sm"
+                                className="px-4 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 text-sm"
                               >
                                 Update Link
                               </button>
@@ -313,14 +309,64 @@ const Bookings = () => {
                       </>
                     )}
 
+                    {booking.status === "completed" && booking.teacher._id === user._id && (
+                      <div className="text-green-600 text-sm">
+                        {booking.pointsEarned} points earned
+                      </div>
+                    )}
+
+                    {/* ✅ Review for Learner after session is completed */}
                     {booking.status === "completed" &&
-                      booking.pointsEarned > 0 && (
-                        <div className="text-center">
-                          <span className="text-sm text-green-600 font-medium">
-                            {booking.teacher._id === user._id
-                              ? `${booking?.pointsEarned} points earned`
-                              : ""}
-                          </span>
+                      booking.learner._id === user._id &&
+                      !submittedReviews[booking._id] && (
+                        <div className="mt-4 bg-zinc-50 border p-4 rounded-xl">
+                          <h4 className="font-semibold text-sm mb-2">
+                            Leave a review for {booking.teacher.name}
+                          </h4>
+                          <div className="flex items-center space-x-2 mb-2">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                              <button
+                                key={star}
+                                onClick={() =>
+                                  setReviewData((prev) => ({
+                                    ...prev,
+                                    [booking._id]: {
+                                      ...prev[booking._id],
+                                      rating: star,
+                                    },
+                                  }))
+                                }
+                                className={`text-xl ${
+                                  reviewData[booking._id]?.rating >= star
+                                    ? "text-yellow-400"
+                                    : "text-gray-300"
+                                }`}
+                              >
+                                ★
+                              </button>
+                            ))}
+                          </div>
+                          <textarea
+                            rows={3}
+                            placeholder="Write your feedback..."
+                            value={reviewData[booking._id]?.feedback || ""}
+                            onChange={(e) =>
+                              setReviewData((prev) => ({
+                                ...prev,
+                                [booking._id]: {
+                                  ...prev[booking._id],
+                                  feedback: e.target.value,
+                                },
+                              }))
+                            }
+                            className="w-full p-2 border rounded-lg text-sm mb-2"
+                          />
+                          <button
+                            onClick={() => submitReview(booking._id)}
+                            className="px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg hover:bg-fuchsia-700 text-sm"
+                          >
+                            Submit Review
+                          </button>
                         </div>
                       )}
                   </div>

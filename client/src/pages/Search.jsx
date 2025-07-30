@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import api from "../utils/api"
+import { FiFlag } from "react-icons/fi" // report icon
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("")
@@ -45,11 +46,39 @@ const Search = () => {
     }
   }
 
+  const handleReportUser = async (user) => {
+    const confirmReport = window.confirm(`Do you want to report ${user.name}?`)
+    if (!confirmReport) return
+
+    const emailBody = `
+Reported User:
+--------------
+Name: ${user.name}
+Location: ${user.location}
+Rating: ${user.rating.average.toFixed(1)} (${user.rating.count} reviews)
+Skills: ${user.skillsOffered.map(s => s.skill).join(", ")}
+User ID: ${user._id}
+    `
+
+    try {
+      await api.post("/report", {
+        to: "vikas95116@gmail.com",
+        subject: `Reported User: ${user.name}`,
+        message: emailBody,
+      })
+
+      alert("User has been reported successfully.")
+    } catch (error) {
+      console.error("Error reporting user:", error)
+      alert("Something went wrong while reporting.")
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-fuchsia-600 via-red-500 to-yellow-500 bg-clip-text text-transparent">Find Skills to Learn</h1>
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-500 bg-clip-text text-transparent">Find Skills to Learn</h1>
           <p className="text-zinc-700 text-lg mt-2">Discover amazing teachers in your area</p>
         </div>
 
@@ -102,8 +131,17 @@ const Search = () => {
             {users.map((user) => (
               <div
                 key={user._id}
-                className="bg-white/80 border border-zinc-200/50 rounded-3xl p-6 shadow-md hover:shadow-xl transition-all duration-200"
+                className="relative bg-white/80 border border-zinc-200/50 rounded-3xl p-6 shadow-md hover:shadow-xl transition-all duration-200"
               >
+                {/* Report User Button */}
+                <button
+                  className="absolute top-4 right-4 text-zinc-400 hover:text-red-600"
+                  title="Report User"
+                  onClick={() => handleReportUser(user)}
+                >
+                  <FiFlag size={20} />
+                </button>
+
                 <div className="flex items-center space-x-4 mb-4">
                   <div className="w-16 h-16 bg-gradient-to-br from-orange-300 to-yellow-400 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-md">
                     {user.name[0]}
@@ -120,25 +158,30 @@ const Search = () => {
                   </div>
                 </div>
 
-                <div className="mb-4">
-                  <h4 className="text-sm font-semibold text-zinc-700 mb-2">Skills Offered:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {user.skillsOffered.slice(0, 3).map((skill, i) => (
-                      <span key={i} className="px-3 py-1 bg-pink-100 text-pink-800 rounded-full text-xs font-medium">
-                        {skill.skill}
-                      </span>
-                    ))}
-                    {user.skillsOffered.length > 3 && (
-                      <span className="px-3 py-1 bg-pink-100 text-pink-800 rounded-full text-xs font-medium">
-                        +{user.skillsOffered.length - 3} more
-                      </span>
-                    )}
-                  </div>
-                </div>
+                {/* Skills as cards */}
+<div className="mb-4">
+  <h4 className="text-sm font-semibold text-zinc-700 mb-1">Skills Offered:</h4>
+  <div className="flex flex-wrap gap-2">
+    {user.skillsOffered.slice(0, 4).map((skill, i) => (
+      <div
+        key={i}
+        className="bg-pink-100 text-pink-800 border border-pink-200 rounded-full text-xs px-3 py-1 font-medium"
+      >
+        {skill.skill}
+      </div>
+    ))}
+    {user.skillsOffered.length > 4 && (
+      <div className="bg-pink-100 text-pink-800 border border-pink-200 rounded-full text-xs px-3 py-1 font-medium">
+        +{user.skillsOffered.length - 4} more
+      </div>
+    )}
+  </div>
+</div>
+
 
                 <Link
                   to={`/user/${user._id}`}
-                  className="block w-full py-3 px-4 bg-gradient-to-r from-fuchsia-600 to-pink-500 text-white rounded-xl text-center font-semibold hover:from-fuchsia-500 hover:to-pink-400 transition-all duration-200"
+                  className="w-[35%] mx-auto py-2 px-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg text-center font-semibold hover:from-purple-500 hover:to-indigo-600 transition-all duration-200 block"
                 >
                   View Profile
                 </Link>
