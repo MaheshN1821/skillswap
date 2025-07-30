@@ -100,13 +100,13 @@ const Bookings = () => {
 
     const booking = bookings.find((b) => b._id === bookingId);
     try {
-      await api.post("/reviews", {
+      await api.post("/bookings/reviews", {
         booking: bookingId,
         reviewer: user._id,
         reviewee: booking.teacher._id,
         rating,
         comment: feedback,
-        type: "learner"
+        type: "learner",
       });
       setSubmittedReviews((prev) => ({ ...prev, [bookingId]: true }));
       addToast("Review submitted successfully!", "success");
@@ -118,12 +118,18 @@ const Bookings = () => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case "pending": return "bg-yellow-100 text-yellow-800";
-      case "accepted": return "bg-green-100 text-green-800";
-      case "completed": return "bg-blue-100 text-blue-800";
-      case "rejected": return "bg-red-100 text-red-800";
-      case "cancelled": return "bg-gray-100 text-gray-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "pending":
+        return "bg-yellow-100 text-yellow-800";
+      case "accepted":
+        return "bg-green-100 text-green-800";
+      case "completed":
+        return "bg-blue-100 text-blue-800";
+      case "rejected":
+        return "bg-red-100 text-red-800";
+      case "cancelled":
+        return "bg-gray-100 text-gray-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -140,7 +146,9 @@ const Bookings = () => {
           <h1 className="text-4xl font-extrabold bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-500 bg-clip-text text-transparent mb-2">
             My Bookings
           </h1>
-          <p className="text-zinc-700">Manage your teaching and learning sessions</p>
+          <p className="text-zinc-700">
+            Manage your teaching and learning sessions
+          </p>
         </div>
 
         <div className="bg-white/90 backdrop-blur-md rounded-2xl border border-zinc-200 p-2 mb-8 shadow-xl">
@@ -210,7 +218,9 @@ const Bookings = () => {
                       </div>
                       <div>
                         <span className="text-zinc-500">Duration:</span>
-                        <p className="font-medium">{booking.duration} minutes</p>
+                        <p className="font-medium">
+                          {booking.duration} minutes
+                        </p>
                       </div>
                       <div>
                         <span className="text-zinc-500">Status:</span>
@@ -226,7 +236,9 @@ const Bookings = () => {
 
                     {booking.message && (
                       <div className="mt-4 p-3 bg-pink-50 rounded-lg">
-                        <p className="text-sm text-zinc-700">{booking.message}</p>
+                        <p className="text-sm text-zinc-700">
+                          {booking.message}
+                        </p>
                       </div>
                     )}
                   </div>
@@ -266,7 +278,7 @@ const Bookings = () => {
                             href={booking.meetingLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm text-center"
+                            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 mt-4 transition-colors text-sm text-center"
                           >
                             Join Meeting
                           </a>
@@ -309,11 +321,12 @@ const Bookings = () => {
                       </>
                     )}
 
-                    {booking.status === "completed" && booking.teacher._id === user._id && (
-                      <div className="text-green-600 text-sm">
-                        {booking.pointsEarned} points earned
-                      </div>
-                    )}
+                    {booking.status === "completed" &&
+                      booking.teacher._id === user._id && (
+                        <div className="text-green-600 text-sm">
+                          {booking.pointsEarned} points earned
+                        </div>
+                      )}
 
                     {/* ✅ Review for Learner after session is completed */}
                     {booking.status === "completed" &&
