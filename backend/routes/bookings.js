@@ -158,9 +158,42 @@ router.post("/reviews", auth, async (req, res) => {
       type: type,
     });
 
+    const user = await User.findById(reviewee);
+
+    const oldAvg = user?.rating?.average;
+    const oldCount = user?.rating?.count;
+
+    const newCount = oldCount + 1;
+    const newAvg = (oldAvg + rating) / 2;
+
+    await User.findByIdAndUpdate(
+      reviewee,
+      {
+        $set: {
+          "rating.count": newCount,
+          "rating.average": newAvg,
+        },
+      },
+      { new: true }
+    );
+
     await review.save();
 
-    res.status(201).json(booking);
+    res.status(201).json(review);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+router.get("/reviews/:id", auth, async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const data = await Review.find({
+      $or: [{ reviewee: id }, { reviewer: id }],
+    });
+
+    res.status(200).json(data);
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }

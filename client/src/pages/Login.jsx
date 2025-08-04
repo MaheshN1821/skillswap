@@ -1,56 +1,61 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { useAuth } from "../contexts/AuthContext"
-import { useToast } from "../contexts/ToastContext"
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { useToast } from "../contexts/ToastContext";
 
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-  })
-  const [loading, setLoading] = useState(false)
+  });
+  const [loading, setLoading] = useState(false);
 
-  const { login } = useAuth()
-  const { addToast } = useToast()
-  const navigate = useNavigate()
+  const { login } = useAuth();
+  const { addToast } = useToast();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    })
-  }
+    });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
+    e.preventDefault();
+    setLoading(true);
 
-    const result = await login(formData.email, formData.password)
+    const result = await login(formData.email, formData.password);
 
     if (result.success) {
-      addToast("Welcome back!", "success")
-      navigate("/dashboard")
+      addToast("Welcome back!", "success");
+      navigate("/dashboard");
     } else {
-      addToast(result.message, "error")
+      addToast(result.message, "error");
     }
 
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full">
-        <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border border-zinc-200/50 p-8">
+        <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border border-zinc-400 p-8 -mt-24">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-zinc-900">Welcome Back</h2>
-            <p className="text-zinc-600 mt-2">Sign in to your SkillSwap account</p>
+            <p className="text-zinc-600 mt-2">
+              Sign in to your SkillSwap account
+            </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-zinc-700 mb-2">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-zinc-700 mb-2"
+              >
                 Email Address
               </label>
               <input
@@ -66,7 +71,10 @@ const Login = () => {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-zinc-700 mb-2">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-zinc-700 mb-2"
+              >
                 Password
               </label>
               <input
@@ -93,7 +101,10 @@ const Login = () => {
           <div className="mt-6 text-center">
             <p className="text-zinc-600">
               Don't have an account?{" "}
-              <Link to="/register" className="text-zinc-900 font-semibold hover:underline">
+              <Link
+                to="/register"
+                className="text-zinc-900 font-semibold hover:underline"
+              >
                 Sign up
               </Link>
             </p>
@@ -101,7 +112,7 @@ const Login = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
