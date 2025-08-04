@@ -60,7 +60,7 @@ User ID: ${user._id}
 
     try {
       await api.post("/report", {
-        to: "maheshmahi18042004@gmail.com",
+        to: "vikas95116@gmail.com",
         subject: `Reported User: ${user.name}`,
         message: emailBody,
       });
