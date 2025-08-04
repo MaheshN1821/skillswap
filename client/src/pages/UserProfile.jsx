@@ -16,6 +16,7 @@ const UserProfile = () => {
   const [loading, setLoading] = useState(true);
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState(null);
+  const [reviewData, setReviewData] = useState([]);
   const [bookingData, setBookingData] = useState({
     scheduledDate: "",
     message: "",
@@ -37,6 +38,22 @@ const UserProfile = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await api.get(`/bookings/reviews/${id}`);
+        console.log(response);
+        setReviewData(response.data);
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchReviews();
+  }, [id]);
 
   const handleBookSession = (skill) => {
     if (currentUser.points < 1) {
@@ -112,6 +129,24 @@ const UserProfile = () => {
 
               {user.bio && (
                 <p className="text-zinc-700 leading-relaxed">{user.bio}</p>
+              )}
+            </div>
+
+            <div className="flex-1 w-200 mt-6">
+              <h2 className="font-semibold text-lg">Reviews: </h2>
+              {reviewData.length > 0 ? (
+                <div className="mt-4">
+                  {reviewData.map((review, index) => (
+                    <div key={index + 1} className="m-2 mb-3">
+                      <div>
+                        Review #{index + 1}: {review?.comment}
+                      </div>
+                      <div>Created At: {review?.createdAt?.slice(0, 10)}</div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div>No Reviews yet</div>
               )}
             </div>
           </div>

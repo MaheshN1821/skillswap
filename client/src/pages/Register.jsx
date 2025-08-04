@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { useAuth } from "../contexts/AuthContext"
-import { useToast } from "../contexts/ToastContext"
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { useToast } from "../contexts/ToastContext";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -11,54 +11,63 @@ const Register = () => {
     email: "",
     password: "",
     confirmPassword: "",
-  })
-  const [loading, setLoading] = useState(false)
+  });
+  const [loading, setLoading] = useState(false);
 
-  const { register } = useAuth()
-  const { addToast } = useToast()
-  const navigate = useNavigate()
+  const { register } = useAuth();
+  const { addToast } = useToast();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    })
-  }
+    });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      addToast("Passwords do not match", "error")
-      return
+      addToast("Passwords do not match", "error");
+      return;
     }
 
-    setLoading(true)
+    setLoading(true);
 
-    const result = await register(formData.email, formData.password, formData.name)
+    const result = await register(
+      formData.email,
+      formData.password,
+      formData.name
+    );
 
     if (result.success) {
-      addToast("Account created successfully!", "success")
-      navigate("/profile-setup")
+      addToast("Account created successfully!", "success");
+      navigate("/profile-setup");
     } else {
-      addToast(result.message, "error")
+      addToast(result.message, "error");
     }
 
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full">
-        <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border border-zinc-200/50 p-8">
+        <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border border-zinc-300 p-8 -mt-6">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-zinc-900">Join SkillSwap</h2>
-            <p className="text-zinc-600 mt-2">Create your account and start learning</p>
+            <p className="text-zinc-600 mt-2">
+              Create your account and start learning
+            </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-zinc-700 mb-2">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-zinc-700 mb-2"
+              >
                 Full Name
               </label>
               <input
@@ -74,7 +83,10 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-zinc-700 mb-2">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-zinc-700 mb-2"
+              >
                 Email Address
               </label>
               <input
@@ -90,7 +102,10 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-zinc-700 mb-2">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-zinc-700 mb-2"
+              >
                 Password
               </label>
               <input
@@ -106,7 +121,10 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-zinc-700 mb-2">
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-zinc-700 mb-2"
+              >
                 Confirm Password
               </label>
               <input
@@ -133,7 +151,10 @@ const Register = () => {
           <div className="mt-6 text-center">
             <p className="text-zinc-600">
               Already have an account?{" "}
-              <Link to="/login" className="text-zinc-900 font-semibold hover:underline">
+              <Link
+                to="/login"
+                className="text-zinc-900 font-semibold hover:underline"
+              >
                 Sign in
               </Link>
             </p>
@@ -141,7 +162,7 @@ const Register = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

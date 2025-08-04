@@ -115,7 +115,7 @@ const Dashboard = () => {
 
           <div className="flex flex-wrap gap-6 justify-between">
             {/* Points Balance */}
-            <div className="flex-1 min-w-[200px] bg-white/70 backdrop-blur-xl rounded-3xl p-6 border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-300">
+            <div className="flex-1 min-w-[200px] bg-white/70 backdrop-blur-xl rounded-3xl p-6 border border-gray-300 shadow-xl hover:shadow-2xl transition-all duration-300">
               <div className="text-center">
                 <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg">
                   {iconComponents.Points}
@@ -131,7 +131,7 @@ const Dashboard = () => {
             </div>
 
             {/* Pending Requests */}
-            <div className="flex-1 min-w-[200px] bg-white/70 backdrop-blur-xl rounded-3xl p-6 border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-300">
+            <div className="flex-1 min-w-[200px] bg-white/70 backdrop-blur-xl rounded-3xl p-6 border border-gray-300 shadow-xl hover:shadow-2xl transition-all duration-300">
               <div className="text-center">
                 <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg">
                   {iconComponents.Pending}
@@ -147,7 +147,7 @@ const Dashboard = () => {
             </div>
 
             {/* Completed Sessions */}
-            <div className="flex-1 min-w-[200px] bg-white/70 backdrop-blur-xl rounded-3xl p-6 border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-300">
+            <div className="flex-1 min-w-[200px] bg-white/70 backdrop-blur-xl rounded-3xl p-6 border border-gray-300 shadow-xl hover:shadow-2xl transition-all duration-300">
               <div className="text-center">
                 <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg">
                   {iconComponents.Completed}
@@ -163,7 +163,7 @@ const Dashboard = () => {
             </div>
 
             {/* Upcoming Sessions */}
-            <div className="flex-1 min-w-[200px] bg-white/70 backdrop-blur-xl rounded-3xl p-6 border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-300">
+            <div className="flex-1 min-w-[200px] bg-white/70 backdrop-blur-xl rounded-3xl p-6 border border-gray-300 shadow-xl hover:shadow-2xl transition-all duration-300">
               <div className="text-center">
                 <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg">
                   {iconComponents.Upcoming}

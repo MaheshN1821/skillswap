@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { Superscript } from "lucide-react";
 
 const Navbar = () => {
   const { user } = useAuth();
@@ -17,10 +18,12 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-to-br from-zinc-900 to-zinc-700 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">SB</span>
+              <span className="text-white font-bold text-sm">
+                S<sup>2</sup>
+              </span>
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-zinc-900 to-zinc-600 bg-clip-text text-transparent">
-              SkillBridge
+              SkillSwap
             </span>
           </Link>
 

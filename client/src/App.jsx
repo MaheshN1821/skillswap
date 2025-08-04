@@ -18,7 +18,7 @@ import Search from "./pages/Search";
 import UserProfile from "./pages/UserProfile";
 import Bookings from "./pages/Bookings";
 import "./App.css";
-import AboutPage from "./pages/About";
+import AboutPage from "./pages/AboutPage";
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -51,6 +51,7 @@ function App() {
             <Navbar />
             <Routes>
               <Route path="/" element={<Landing />} />
+              <Route path="/about" element={<AboutPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/profile-setup" element={<ProfileSetup />} />
