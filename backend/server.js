@@ -14,9 +14,8 @@ dotenv.config();
 const app = express();
 
 const allowedOrigins = [
-  "http://localhost:5173",
-  "https://your-frontend-domain.com",
-  "https://www.your-frontend-domain.com",
+  "https://skill-swap-ebon-beta.vercel.app",
+  "https://www.skill-swap-ebon-beta.vercel.app",
 ];
 
 const corsOptions = {
