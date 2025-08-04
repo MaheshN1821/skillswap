@@ -110,7 +110,6 @@ router.post("/:bookingId/start", auth, async (req, res) => {
       return res.status(400).json({ message: "Session is not accepted" });
     }
 
-    // ✅ Only generate meeting link if it doesn't exist
     if (!booking.meetingLink) {
       const meetingId = Math.random().toString(36).substring(2, 15);
       booking.meetingLink = `https://meet.google.com/${meetingId}`;

@@ -7,6 +7,7 @@ const userRoutes = require("./routes/users");
 const skillRoutes = require("./routes/skills");
 const bookingRoutes = require("./routes/bookings");
 const sessionRoutes = require("./routes/sessions");
+const reportRoutes = require("./routes/report");
 
 dotenv.config();
 
@@ -50,6 +51,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/skills", skillRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/sessions", sessionRoutes);
+app.use("/api/report", reportRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
